@@ -21,7 +21,6 @@ export const CreatePolls = () => {
   };
 
   const removeOption = (e) => {
-    console.log(e.target.value, "rem");
     const index = parseInt(e.target.value);
     if (poll.options.length === 2) return;
     setPoll({ ...poll, options: poll.options.filter((_, i) => i !== index) });
@@ -33,9 +32,8 @@ export const CreatePolls = () => {
       alert("Please fill all fields");
       return;
     }
-    console.log(poll, "poll");
     dispatch(createPoll(poll));
-    // setPoll({ question: "", options: initialOptions });
+    setPoll({ question: "", options: initialOptions });
   };
 
   return (

@@ -13,7 +13,6 @@ const createPoll = (poll) => async (dispatch) => {
     });
     const data = await response.json();
 
-    console.log(data);
     if (data.insert_polling_data.affected_rows) {
       dispatch({
         type: ACTIONS.CREATE_POLL_SUCCESS,
@@ -37,7 +36,6 @@ const vote = (pollId, options) => async (dispatch) => {
         });
         const data = await response.json();
 
-        console.log(data);
         if (data.update_polling_data.affected_rows) {
             dispatch({
                 type: ACTIONS.VOTE_POLL_SUCCESS,
@@ -60,7 +58,6 @@ const getPolls = () => async (dispatch) => {
         });
         const data = await response.json();
 
-        console.log(data);
         dispatch({ type: ACTIONS.GET_POLLS_SUCCESS, payload: data.polling_data });
     } catch (error) {
         dispatch({ type: ACTIONS.GET_POLLS_FAILURE , error})

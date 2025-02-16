@@ -17,7 +17,6 @@ const initialState = {
 };
 
 const pollsReducer = (state = initialState, action) => {
-  console.log(action, "accctt");
   switch (action.type) {
     case ACTIONS.GET_POLLS_LOADING:
       return { ...state, isLoading: true };
@@ -30,7 +29,6 @@ const pollsReducer = (state = initialState, action) => {
     case ACTIONS.CREATE_POLL_FAILURE:
       return { ...state, isLoading: false, error: action.error };
     case ACTIONS.GET_POLLS_SUCCESS:
-      console.log(action.payload, "succe");
       return {
         ...state,
         isLoading: false,

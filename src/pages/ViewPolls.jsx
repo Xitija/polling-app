@@ -8,17 +8,10 @@ export const ViewPolls = () => {
   const polls = useSelector((state) => state.polls);
   const isLoading = useSelector((state) => state.isLoading);
 
-  const voteHandler = (poll, option, i) => {
-    console.log(poll, option, "b4");
+  const voteHandler = (poll, i) => {
     poll.options[i].count += 1;
-    console.log(poll);
     dispatch(vote(poll.poll_id, poll.options));
   };
-
-  console.log(polls, "polllss");
-  //   useEffect(() => {
-  //     dispatch(getPolls());
-  //   }, [dispatch]);
 
   useEffect(() => {
     dispatch(getPolls());
@@ -53,7 +46,7 @@ export const ViewPolls = () => {
                         {option.value}: {option.count}
                       </span>
                       &nbsp;
-                      <button onClick={() => voteHandler(poll, option, index)}>
+                      <button onClick={() => voteHandler(poll, index)}>
                         Vote
                       </button>
                     </p>
