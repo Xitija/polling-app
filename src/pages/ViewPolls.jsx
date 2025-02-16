@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getPolls } from "../reducer/actions";
+import { getPolls, vote } from "../reducer/actions";
 
 export const ViewPolls = () => {
   const dispatch = useDispatch();
@@ -8,10 +8,11 @@ export const ViewPolls = () => {
   const polls = useSelector((state) => state.polls);
   const isLoading = useSelector((state) => state.isLoading);
 
-  const vote = (poll, option, i) => {
-    console.log( option);
+  const voteHandler = (poll, option, i) => {
+    console.log(poll, option, "b4");
     poll.options[i].count += 1;
-    console.log(poll)
+    console.log(poll);
+    dispatch(vote(poll.poll_id, poll.options));
   };
 
   console.log(polls, "polllss");
@@ -22,11 +23,11 @@ export const ViewPolls = () => {
   useEffect(() => {
     dispatch(getPolls());
 
-    // const interval = setInterval(() => {
-    //   dispatch(getPolls());
-    // }, 5000); // Refresh every 5 seconds
+    const interval = setInterval(() => {
+      dispatch(getPolls());
+    }, 5000); // Refresh every 5 seconds
 
-    // return () => clearInterval(interval);
+    return () => clearInterval(interval);
   }, [dispatch]);
 
   return (
@@ -52,7 +53,7 @@ export const ViewPolls = () => {
                         {option.value}: {option.count}
                       </span>
                       &nbsp;
-                      <button onClick={() => vote(poll, option, index)}>
+                      <button onClick={() => voteHandler(poll, option, index)}>
                         Vote
                       </button>
                     </p>
