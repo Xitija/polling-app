@@ -25,4 +25,22 @@ const createPoll = (poll) => async (dispatch) => {
   }
 };
 
-export { createPoll };
+const getPolls = () => async (dispatch) => {
+    try {
+        dispatch({ type: ACTIONS.GET_POLLS_LOADING });
+        const response = await fetch(`${HOST_URL}/getpolldata`, {
+            method: "GET",
+            headers: {
+                "x-hasura-admin-secret": API_SECRET,
+            },
+        });
+        const data = await response.json();
+
+        console.log(data);
+        dispatch({ type: ACTIONS.GET_POLLS_SUCCESS, payload: data.polling_data });
+    } catch (error) {
+        dispatch({ type: ACTIONS.GET_POLLS_FAILURE , error})
+    }
+}
+
+export { createPoll , getPolls };

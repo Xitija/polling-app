@@ -27,6 +27,17 @@ const pollsReducer = (state = initialState, action) => {
       };
     case ACTIONS.CREATE_POLL_FAILURE:
       return { ...state, isLoading: false, error: action.error };
+    case ACTIONS.GET_POLLS_SUCCESS:
+        console.log(action.payload , "succe")
+      return {
+        ...state,
+        isLoading: false,
+        polls: action.payload,
+      };
+    case ACTIONS.GET_POLLS_FAILURE:
+      return { ...state, isLoading: false, error: action.error };
+    default:
+      return state;
   }
 };
 
